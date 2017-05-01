@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="Medi_Tiny_Distance">3dp</dimen>
+    <dimen name="Medi_Small_Distance">5dp</dimen>
+    <dimen name="Medi_Medium_Distance">10dp</dimen>
+    <dimen name="Medi_Large_Distance">15dp</dimen>
+    <dimen name="Medi_Huge_Distance">20dp</dimen>
+
+    <dimen name="Medi_Icon_Size">35dp</dimen>
+
+</resources>

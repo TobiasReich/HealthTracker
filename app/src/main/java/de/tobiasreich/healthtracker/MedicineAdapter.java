@@ -12,9 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by T on 01.05.2017.
- */
-
+ * Created by T on 01.05.2017. */
 class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
 
     private List<Medicine> meds;
@@ -36,6 +34,10 @@ class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Medicine medicine = meds.get(position);
 
+        if (position % 2 == 0)
+            holder.rootView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGrayOdd));
+        else
+            holder.rootView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white));
         holder.titleTV.setText(medicine.title);
         holder.descriptionTV.setText(medicine.description);
     }
@@ -47,13 +49,14 @@ class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        public View rootView;
         public TextView titleTV;
         public TextView descriptionTV;
         public ImageView imageView;
 
         public ViewHolder(View rootView) {
             super(rootView);
-
+            this.rootView = rootView;
             titleTV = (TextView) rootView.findViewById(R.id.titleTV);
             descriptionTV = (TextView) rootView.findViewById(R.id.descriptionTV);
             imageView = (ImageView) rootView.findViewById(R.id.imageView);
