@@ -26,7 +26,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/birthdayET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Birthday"
@@ -40,14 +40,14 @@
         android:layout_height="wrap_content">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/maleRB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Male" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/femaleRB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -60,11 +60,11 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/weightET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Weight"
-            android:inputType="textPersonName" />
+            android:inputType="numberDecimal" />
     </android.support.design.widget.TextInputLayout>
 
 
@@ -73,11 +73,11 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/heightET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Height"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName|numberDecimal" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
