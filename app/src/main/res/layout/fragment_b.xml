@@ -7,78 +7,35 @@
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="Fragment B"
-        android:textSize="25sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        android:orientation="horizontal"
-        android:padding="@dimen/Medi_Medium_Distance">
-
-        <TextView
-            android:id="@+id/textView2"
-            style="@style/MediListElementHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView"
-            android:textSize="10sp" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="@dimen/Medi_Icon_Size"
-            android:layout_height="@dimen/Medi_Icon_Size"
-            android:src="@mipmap/ic_launcher_round" />
-    </LinearLayout>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/durationET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textMultiLine|textImeMultiLine|textShortMessage|textPersonName"
-        android:text="Name" />
+        android:inputType="textPersonName"
+        android:text="Duration" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/qualityET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:inputType="number"
+        android:text="Quality" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/noteET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:inputType="textPersonName"
+        android:text="Note" />
 
-    <EditText
-        android:id="@+id/editText4"
+    <Button
+        android:id="@+id/insertButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textShortMessage|number" />
-
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName|number|numberSigned|numberDecimal|phone" />
-
-
+        android:text="Insert" />
 </LinearLayout>
