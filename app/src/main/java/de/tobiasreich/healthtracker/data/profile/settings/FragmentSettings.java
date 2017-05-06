@@ -81,10 +81,10 @@ public class FragmentSettings extends Fragment {
     public void onResume() {
         super.onResume();
 
-        String name = sharedPref.getString(getString(R.string.preferences_user_name_key), "XYZ");
+        String name = sharedPref.getString(getString(R.string.preferences_user_name_key), "");
         nameET.setText(name);
 
-        String birthday = sharedPref.getString(getString(R.string.preferences_user_birthday_key), "01.01.1900");
+        String birthday = sharedPref.getString(getString(R.string.preferences_user_birthday_key), "");
         birthdayET.setText(birthday);
 
         float weight = sharedPref.getFloat(getString(R.string.preferences_user_weight_key), 0);
