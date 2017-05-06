@@ -1,4 +1,4 @@
-package de.tobiasreich.healthtracker;
+package de.tobiasreich.healthtracker.data.medicineList;
 
 
 import android.os.Bundle;
@@ -16,8 +16,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.tobiasreich.healthtracker.R;
+import de.tobiasreich.healthtracker.data.database.DataManager;
 
-public class FragmentA extends Fragment {
+
+public class FragmentMedicineList extends Fragment {
 
     private AutoCompleteTextView medicineACTV;
 
@@ -32,7 +35,7 @@ public class FragmentA extends Fragment {
     private List<Medicine> userMeds = new ArrayList<>();
 
 
-    public FragmentA() {
+    public FragmentMedicineList() {
         // Required empty public constructor
     }
 

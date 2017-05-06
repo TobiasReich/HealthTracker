@@ -1,17 +1,16 @@
 package de.tobiasreich.healthtracker;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+
+import de.tobiasreich.healthtracker.data.medicineList.FragmentMedicineList;
+import de.tobiasreich.healthtracker.data.profile.settings.FragmentSettings;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentContainer = (LinearLayout) findViewById(R.id.fragmentContainer);
         buttonA = (Button) findViewById(R.id.buttonA);
         buttonB = (Button) findViewById(R.id.buttonB);
-        buttonA.setOnClickListener(v -> switchToFragment(new FragmentA()));
+        buttonA.setOnClickListener(v -> switchToFragment(new FragmentMedicineList()));
 
         buttonB.setOnClickListener(v -> switchToFragment(new FragmentB()));
     }

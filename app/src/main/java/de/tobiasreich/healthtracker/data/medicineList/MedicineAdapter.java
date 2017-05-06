@@ -1,4 +1,4 @@
-package de.tobiasreich.healthtracker;
+package de.tobiasreich.healthtracker.data.medicineList;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import de.tobiasreich.healthtracker.R;
 
 /**
  * Created by T on 01.05.2017. */

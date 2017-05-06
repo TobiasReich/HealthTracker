@@ -1,4 +1,4 @@
-package de.tobiasreich.healthtracker;
+package de.tobiasreich.healthtracker.data.profile.settings;
 
 
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import de.tobiasreich.healthtracker.R;
 
 
 /**

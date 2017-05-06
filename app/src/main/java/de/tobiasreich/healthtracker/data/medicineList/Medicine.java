@@ -1,4 +1,4 @@
-package de.tobiasreich.healthtracker;
+package de.tobiasreich.healthtracker.data.medicineList;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package de.tobiasreich.healthtracker;
+package de.tobiasreich.healthtracker.data.database;
 
 import java.io.BufferedReader;
 import java.io.IOException;
