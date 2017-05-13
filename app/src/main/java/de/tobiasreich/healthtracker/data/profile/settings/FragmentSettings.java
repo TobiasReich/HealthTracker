@@ -1,10 +1,13 @@
 package de.tobiasreich.healthtracker.data.profile.settings;
 
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +16,27 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import de.tobiasreich.healthtracker.R;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
+import de.tobiasreich.healthtracker.R;
+import de.tobiasreich.healthtracker.ui.DateTimePickerDialog;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentSettings extends Fragment {
+public class FragmentSettings extends Fragment implements DateTimePickerDialog.DateTimeListener {
+
+    private static final String TAG = FragmentSettings.class.getSimpleName();
+
+
+    public static final SimpleDateFormat FORMAT_SIMPLE_DATE = new SimpleDateFormat("dd.MM.yyyy", java.util.Locale.getDefault());    // 15.10.2016
+    public static final SimpleDateFormat FORMAT_SIMPLE_DATE_WITH_TIME = new SimpleDateFormat("dd.MM.yyyy - HH:mm", java.util.Locale.getDefault()); // 15.10.2016 - 10:30
+    public static final SimpleDateFormat FORMAT_FULL_DATE_WITH_DAY = new SimpleDateFormat("EE, d. MMMM yyyy", java.util.Locale.getDefault());   // Mo., 15. October 2016
+    public static final SimpleDateFormat FORMAT_FULL_DATE_WITH_DAY_AND_TIME = new SimpleDateFormat("EE d. MMMM yyyy - HH:mm", java.util.Locale.getDefault());   // Mo., 15. 10. 2017 - 10:30
+
 
     private static final int USER_SEX_UNKNOWN = 0;
     private static final int USER_SEX_MALE = 1;
@@ -27,18 +44,14 @@ public class FragmentSettings extends Fragment {
 
     SharedPreferences sharedPref;
 
-    String name;
-    String birthday;
-    String sex;
-    String weight;
-    String height;
+    private long birthdayTimeStamp;
 
-    EditText nameET;
-    EditText birthdayET;
-    EditText weightET;
-    EditText heightET;
-    RadioButton maleRB;
-    RadioButton femaleRB;
+    private EditText nameET;
+    private EditText birthdayET;
+    private EditText weightET;
+    private EditText heightET;
+    private RadioButton maleRB;
+    private RadioButton femaleRB;
 
 
     public FragmentSettings() {
@@ -50,10 +63,13 @@ public class FragmentSettings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        //sharedPref = getActivity().getSharedPreferences("tobi", Context.MODE_PRIVATE);
+
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
 
         nameET = (EditText) rootView.findViewById(R.id.nameET);
         birthdayET = (EditText) rootView.findViewById(R.id.birthdayET);
+        birthdayET.setOnClickListener(v -> new DateTimePickerDialog(getActivity(), true, birthdayTimeStamp, FragmentSettings.this).show());
         weightET = (EditText) rootView.findViewById(R.id.weightET);
         heightET = (EditText) rootView.findViewById(R.id.heightET);
 
@@ -63,7 +79,7 @@ public class FragmentSettings extends Fragment {
         rootView.findViewById(R.id.saveButton).setOnClickListener(v -> {
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString(getString(R.string.preferences_user_name_key), nameET.getText().toString());
-                    editor.putString(getString(R.string.preferences_user_birthday_key), birthdayET.getText().toString());
+                    editor.putLong(getString(R.string.preferences_user_birthday_key), birthdayTimeStamp);
                     editor.putFloat(getString(R.string.preferences_user_weight_key), Float.parseFloat(weightET.getText().toString()));
                     editor.putFloat(getString(R.string.preferences_user_height_key), Float.parseFloat(heightET.getText().toString()));
                     if (maleRB.isChecked())
@@ -74,6 +90,7 @@ public class FragmentSettings extends Fragment {
                     Toast.makeText(getActivity(), "Data saved!", Toast.LENGTH_LONG).show();
                 }
         );
+
         return rootView;
     }
 
@@ -83,9 +100,6 @@ public class FragmentSettings extends Fragment {
 
         String name = sharedPref.getString(getString(R.string.preferences_user_name_key), "");
         nameET.setText(name);
-
-        String birthday = sharedPref.getString(getString(R.string.preferences_user_birthday_key), "");
-        birthdayET.setText(birthday);
 
         float weight = sharedPref.getFloat(getString(R.string.preferences_user_weight_key), 0);
         weightET.setText(Float.toString(weight));
@@ -100,38 +114,16 @@ public class FragmentSettings extends Fragment {
             femaleRB.setChecked(true);
         }
 
+        Calendar birthdayCal = Calendar.getInstance();
+        birthdayCal.setTimeInMillis(sharedPref.getLong(getString(R.string.preferences_user_birthday_key), 0));
+        onDateTimeSelected(birthdayCal);
+    }
+
+    @Override
+    public void onDateTimeSelected(Calendar calendar) {
+        birthdayTimeStamp = calendar.getTimeInMillis();
+        Log.d(TAG, "Changed the birthday: " + birthdayTimeStamp);
+        birthdayET.setText(FORMAT_FULL_DATE_WITH_DAY_AND_TIME .format(calendar.getTime()));
     }
 
 }
-
-
-
-/*
-* <Prefrences name="de.tobaisreich.healthtracker">
-*      <edat>100</edat>
-* </Preferences>
-*
-* <Prefrences name="tobi">
-*      <edat>100</edat>
-* </Preferences>
-*
-* <Prefrences name="tobias">
-*      <edat>100</edat>
-* </Preferences>
-*
-* <Prefrences name="dayane">
-*      <edat>99</edat>
-* </Preferences>
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-* */
