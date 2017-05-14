@@ -28,7 +28,7 @@ public class DateTimePickerDialog extends Dialog {
         setContentView(R.layout.dialog_date_time);
         mDateTimePicker = (DateTimePicker) findViewById(R.id.DateTimePicker);
         mDateTimePicker.setIs24hrView(is24HrView);
-        mDateTimePicker.setDefaultTime(defaultTime);
+        mDateTimePicker.setViewTime(defaultTime);
 
         // Buttons set & cancel
         findViewById(R.id.SetButton).setOnClickListener(view -> {
@@ -39,10 +39,7 @@ public class DateTimePickerDialog extends Dialog {
         findViewById(R.id.CancelButton).setOnClickListener(v -> cancel());
     }
 
-    /** Sets the calendar and it's view elements according to the selected date.
-     *
-     * Note: If timeInMillis is 0, nothing happens.
-     * */
+    /** Sets the calendar and it's view elements according to the selected date. */
     @SuppressLint("WrongConstant")
     public void setViewsByMillis(){
         Calendar dateTime = Calendar.getInstance();

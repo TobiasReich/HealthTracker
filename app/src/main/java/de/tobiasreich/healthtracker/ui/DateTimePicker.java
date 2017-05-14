@@ -92,7 +92,7 @@ public class DateTimePicker extends RelativeLayout implements View.OnClickListen
     }
 
     @SuppressLint("WrongConstant")
-    public void setDefaultTime(long defaultTime) {
+    public void setViewTime(long defaultTime) {
         Calendar cal=Calendar.getInstance();
         cal.setTimeInMillis(defaultTime);
 

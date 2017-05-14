@@ -35,7 +35,7 @@ public class FragmentSettings extends Fragment implements DateTimePickerDialog.D
     public static final SimpleDateFormat FORMAT_SIMPLE_DATE = new SimpleDateFormat("dd.MM.yyyy", java.util.Locale.getDefault());    // 15.10.2016
     public static final SimpleDateFormat FORMAT_SIMPLE_DATE_WITH_TIME = new SimpleDateFormat("dd.MM.yyyy - HH:mm", java.util.Locale.getDefault()); // 15.10.2016 - 10:30
     public static final SimpleDateFormat FORMAT_FULL_DATE_WITH_DAY = new SimpleDateFormat("EE, d. MMMM yyyy", java.util.Locale.getDefault());   // Mo., 15. October 2016
-    public static final SimpleDateFormat FORMAT_FULL_DATE_WITH_DAY_AND_TIME = new SimpleDateFormat("EE d. MMMM yyyy - HH:mm", java.util.Locale.getDefault());   // Mo., 15. 10. 2017 - 10:30
+    public static final SimpleDateFormat FORMAT_FULL_DATE_WITH_DAY_AND_TIME = new SimpleDateFormat("EEEE d. MMMM yyyy - HH:mm", java.util.Locale.getDefault());   // Mo., 15. 10. 2017 - 10:30
 
 
     private static final int USER_SEX_UNKNOWN = 0;
@@ -113,6 +113,8 @@ public class FragmentSettings extends Fragment implements DateTimePickerDialog.D
         } else if (sex == USER_SEX_FEMALE){
             femaleRB.setChecked(true);
         }
+
+
 
         Calendar birthdayCal = Calendar.getInstance();
         birthdayCal.setTimeInMillis(sharedPref.getLong(getString(R.string.preferences_user_birthday_key), 0));

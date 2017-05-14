@@ -1,13 +1,17 @@
 package de.tobiasreich.healthtracker;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import java.util.Calendar;
 
 import de.tobiasreich.healthtracker.data.medicineList.FragmentMedicineList;
 import de.tobiasreich.healthtracker.data.profile.settings.FragmentSettings;
@@ -35,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         buttonA.setOnClickListener(v -> switchToFragment(new FragmentMedicineList()));
 
         buttonB.setOnClickListener(v -> switchToFragment(new FragmentB()));
+
+
     }
 
     @Override
@@ -65,4 +71,22 @@ public class MainActivity extends AppCompatActivity {
         fMan.executePendingTransactions();
     }
 
+
+    @SuppressLint("WrongConstant")
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, ">>> Time in Millis: " + System.currentTimeMillis());
+
+        Calendar cal = Calendar.getInstance();
+        Log.i(TAG, ">>> Calendar-Time in Millis: " + cal.getTimeInMillis());
+
+        Log.i(TAG, ">>> Calendar-Time Year: " + cal.get(Calendar.YEAR));
+        Log.i(TAG, ">>> Calendar-Time Month: " + cal.get(Calendar.MONTH));
+        Log.i(TAG, ">>> Calendar-Time DOM: " + cal.get(Calendar.DAY_OF_MONTH));
+        Log.i(TAG, ">>> Calendar-Time DOW: " + cal.get(Calendar.DAY_OF_WEEK));
+        Log.i(TAG, ">>> Calendar-Time DOWIM: " + cal.get(Calendar.DAY_OF_WEEK_IN_MONTH));
+
+
+    }
 }
