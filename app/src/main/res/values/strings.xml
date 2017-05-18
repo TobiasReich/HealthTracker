@@ -11,4 +11,7 @@
     <string name="preferences_user_height_key">PREFERENCES_USER_HEIGHT_KEY</string>
     <string name="preferences_user_sex_key">PREFERENCES_USER_SEX_KEY</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>

@@ -7,5 +7,9 @@
     <dimen name="Medi_Huge_Distance">20dp</dimen>
 
     <dimen name="Medi_Icon_Size">35dp</dimen>
+    <dimen name="Medi_Medium_Icon_Size">55dp</dimen>
+    <dimen name="Medi_Large_Icon_Size">85dp</dimen>
+
+    <dimen name="nav_header_height">160dp</dimen>
 
 </resources>

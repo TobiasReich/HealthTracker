@@ -11,8 +11,7 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        android.compileOptions.sourceCompatibility 1.8
-        android.compileOptions.targetCompatibility 1.8
+
     }
     buildTypes {
         release {
@@ -38,4 +37,5 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
+
 }
