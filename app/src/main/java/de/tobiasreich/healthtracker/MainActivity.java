@@ -1,6 +1,5 @@
 package de.tobiasreich.healthtracker;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -10,15 +9,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import java.util.Calendar;
-
 import de.tobiasreich.healthtracker.data.medicineList.FragmentMedicineList;
+import de.tobiasreich.healthtracker.data.myMedicine.FragmentMyMedicine;
 import de.tobiasreich.healthtracker.data.prescription.FragmentPrescription;
 import de.tobiasreich.healthtracker.data.profile.settings.FragmentSettings;
 
@@ -42,16 +39,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-/*
-
-        fragmentContainer = (LinearLayout) findViewById(R.id.fragmentContainer);
-        buttonA = (Button) findViewById(R.id.buttonA);
-        buttonB = (Button) findViewById(R.id.buttonB);
-        buttonA.setOnClickListener(v -> switchToFragment(new FragmentMedicineList()));
-
-       // buttonB.setOnClickListener(v -> switchToFragment(new FragmentB()));
-        buttonB.setOnClickListener(v -> switchToFragment(new FragmentPrescription()));
-*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -72,61 +58,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            switchToFragment(new FragmentSettings());
+            // todo
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-
-    private void switchToFragment(final Fragment fragment) {
-       /* fMan.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
-            .addToBackStack(fragment.getClass().getSimpleName())
-            .commit();
-        fMan.executePendingTransactions();*/
-    }
-
-
-
-    @SuppressLint("WrongConstant")
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG, ">>> Time in Millis: " + System.currentTimeMillis());
-
-        Calendar cal = Calendar.getInstance();
-        Log.i(TAG, ">>> Calendar-Time in Millis: " + cal.getTimeInMillis());
-
-        Log.i(TAG, ">>> Calendar-Time Year: " + cal.get(Calendar.YEAR));
-        Log.i(TAG, ">>> Calendar-Time Month: " + cal.get(Calendar.MONTH));
-        Log.i(TAG, ">>> Calendar-Time DOM: " + cal.get(Calendar.DAY_OF_MONTH));
-        Log.i(TAG, ">>> Calendar-Time DOW: " + cal.get(Calendar.DAY_OF_WEEK));
-        Log.i(TAG, ">>> Calendar-Time DOWIM: " + cal.get(Calendar.DAY_OF_WEEK_IN_MONTH));
-
-
-    }
-
-
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_my_profile) {
+            switchToFragment(new FragmentSettings());
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_my_medicine) {
+            switchToFragment(new FragmentMyMedicine());
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_prescription) {
+            switchToFragment(new FragmentPrescription());
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_evaluation) {
+
+
+        } else if (id == R.id.nav_medicine_list) {
+            switchToFragment(new FragmentMedicineList());
 
         } else if (id == R.id.nav_send) {
 
@@ -135,6 +92,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void switchToFragment(final Fragment fragment) {
+        fMan.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(fragment.getClass().getSimpleName())
+                .commit();
+        fMan.executePendingTransactions();
     }
 
 }

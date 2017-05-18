@@ -1,4 +1,4 @@
-package de.tobiasreich.healthtracker;
+package de.tobiasreich.healthtracker.data.myMedicine;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,10 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import de.tobiasreich.healthtracker.R;
 import de.tobiasreich.healthtracker.data.database.DataBaseHelper;
 
 
-public class FragmentB extends Fragment {
+public class FragmentMyMedicine extends Fragment {
 
 
     private EditText durationET;
@@ -22,7 +23,7 @@ public class FragmentB extends Fragment {
 
     private DataBaseHelper dbHelper;
 
-    public FragmentB() {
+    public FragmentMyMedicine() {
         // Required empty public constructor
     }
 
@@ -35,7 +36,7 @@ public class FragmentB extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_b, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_my_medicine, container, false);
 
         durationET = (EditText) rootView.findViewById(R.id.durationET);
         qualityET = (EditText) rootView.findViewById(R.id.qualityET);

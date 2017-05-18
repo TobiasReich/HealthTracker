@@ -37,8 +37,6 @@ public class FragmentPrescription extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_prescription, container, false);
 
-
-
         tabLayout = (TabLayout) rootView.findViewById(R.id.my_tab_layout);
         viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
 
