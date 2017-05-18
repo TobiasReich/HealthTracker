@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import java.util.Calendar;
 
 import de.tobiasreich.healthtracker.data.medicineList.FragmentMedicineList;
+import de.tobiasreich.healthtracker.data.prescription.FragmentPrescription;
 import de.tobiasreich.healthtracker.data.profile.settings.FragmentSettings;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         buttonB = (Button) findViewById(R.id.buttonB);
         buttonA.setOnClickListener(v -> switchToFragment(new FragmentMedicineList()));
 
-        buttonB.setOnClickListener(v -> switchToFragment(new FragmentB()));
+       // buttonB.setOnClickListener(v -> switchToFragment(new FragmentB()));
+        buttonB.setOnClickListener(v -> switchToFragment(new FragmentPrescription()));
 
 
     }
