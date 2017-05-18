@@ -14,9 +14,9 @@ import de.tobiasreich.healthtracker.R;
 public class CustomPagerAdapter extends PagerAdapter {
 
     private Context context;
-    private List<DataObject> objectList;
+    private List<MedicineDataObject> objectList;
 
-    public CustomPagerAdapter(Context context, List<DataObject> medicineList) {
+    public CustomPagerAdapter(Context context, List<MedicineDataObject> medicineList) {
         this.context = context;
         this.objectList = medicineList;
     }
@@ -25,13 +25,15 @@ public class CustomPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup collection, int position) {
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.view_data, collection, false);
+        ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.prescription_item_view, collection, false);
         TextView valueTV = (TextView) layout.findViewById(R.id.valueTV);
+        TextView nameTV = (TextView) layout.findViewById(R.id.nameTV);
 
-        DataObject dataObject = objectList.get(position);
+        MedicineDataObject dataObject = objectList.get(position);
+
+        nameTV.setText(dataObject.name);
+
         valueTV.setText("Value: " + dataObject.value);
-
-
 
         collection.addView(layout);
         return layout;

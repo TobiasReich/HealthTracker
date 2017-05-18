@@ -22,26 +22,23 @@ import de.tobiasreich.healthtracker.data.profile.settings.FragmentSettings;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    public static final String DETAIL_TEXT = "DETAIL_TEXT";
 
     private final FragmentManager fMan = getSupportFragmentManager();
-
-    private LinearLayout fragmentContainer;
-    private Button buttonA;
-    private Button buttonB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("MAIN");
+
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Health Tracker");
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -72,21 +69,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_my_profile) {
             switchToFragment(new FragmentSettings());
-
         } else if (id == R.id.nav_my_medicine) {
             switchToFragment(new FragmentMyMedicine());
-
         } else if (id == R.id.nav_prescription) {
             switchToFragment(new FragmentPrescription());
-
         } else if (id == R.id.nav_evaluation) {
 
 
         } else if (id == R.id.nav_medicine_list) {
             switchToFragment(new FragmentMedicineList());
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

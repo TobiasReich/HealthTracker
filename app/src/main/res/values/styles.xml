@@ -47,12 +47,10 @@
 
     <!-- Header for LIST ELEMENTS etc. -->
     <style name="NavMenuHeadder" parent="@android:style/TextAppearance.Large">
-        <item name="android:textSize">26sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:typeface">sans</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
-
-
 
 </resources>

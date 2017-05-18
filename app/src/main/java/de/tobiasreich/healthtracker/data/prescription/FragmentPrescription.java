@@ -24,34 +24,22 @@ public class FragmentPrescription extends Fragment {
     private ViewPager viewPager;
     private CustomPagerAdapter adapter;
 
-    int selectedTabPosition;
+    private int selectedTabPosition;
+
+    private List<MedicineDataObject> objectList;
 
     public FragmentPrescription() {
-        // Required empty public constructor
+        objectList = new ArrayList<>();
+        for (int i = 0; i<10;i++) {
+            objectList.add(new MedicineDataObject("Medicine " + i, i));
+        }
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_prescription, container, false);
-
         tabLayout = (TabLayout) rootView.findViewById(R.id.my_tab_layout);
         viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
-
-        List<DataObject> objectList = new ArrayList<>();
-        objectList.add(new DataObject());
-        objectList.add(new DataObject());
-        objectList.add(new DataObject());
-        objectList.add(new DataObject());
-        objectList.add(new DataObject());
-        objectList.add(new DataObject());
-        objectList.add(new DataObject());
-        objectList.add(new DataObject());
-        objectList.add(new DataObject());
-        objectList.add(new DataObject());
-
         adapter = new CustomPagerAdapter(getActivity(), objectList);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
