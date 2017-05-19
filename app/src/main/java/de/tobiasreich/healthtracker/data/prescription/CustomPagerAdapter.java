@@ -14,9 +14,9 @@ import de.tobiasreich.healthtracker.R;
 public class CustomPagerAdapter extends PagerAdapter {
 
     private Context context;
-    private List<MedicineDataObject> objectList;
+    private List<MedicinePrescriptionObject> objectList;
 
-    public CustomPagerAdapter(Context context, List<MedicineDataObject> medicineList) {
+    public CustomPagerAdapter(Context context, List<MedicinePrescriptionObject> medicineList) {
         this.context = context;
         this.objectList = medicineList;
     }
@@ -26,14 +26,14 @@ public class CustomPagerAdapter extends PagerAdapter {
         LayoutInflater inflater = LayoutInflater.from(context);
 
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.prescription_item_view, collection, false);
-        TextView valueTV = (TextView) layout.findViewById(R.id.valueTV);
-        TextView nameTV = (TextView) layout.findViewById(R.id.nameTV);
 
-        MedicineDataObject dataObject = objectList.get(position);
+        MedicinePrescriptionObject dataObject = objectList.get(position);
 
-        nameTV.setText(dataObject.name);
-
-        valueTV.setText("Value: " + dataObject.value);
+        ((TextView) layout.findViewById(R.id.nameTV)).setText(dataObject.name);
+        ((TextView) layout.findViewById(R.id.nextUsageTV)).setText("10.10.2017 - 10:30");
+        ((TextView) layout.findViewById(R.id.infoTV)).setText("Drink water!");
+        ((TextView) layout.findViewById(R.id.amountTV)).setText(Integer.toString(dataObject.amount));
+        ((TextView) layout.findViewById(R.id.intervallTV)).setText("Every day!");
 
         collection.addView(layout);
         return layout;

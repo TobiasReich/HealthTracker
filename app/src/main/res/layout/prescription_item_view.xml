@@ -1,42 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/nameTV"
-        style="@style/MediListElementHeader"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        android:padding="@dimen/Medi_Large_Distance"
-        android:text="Ibuprofen" />
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ibu" />
+        <TextView
+            android:id="@+id/nameTV"
+            style="@style/MediListElementHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:padding="@dimen/Medi_Large_Distance"
+            android:text="Ibuprofen" />
 
-    <TextView
-        android:id="@+id/valueTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_header_height"
+            app:srcCompat="@drawable/ibu" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/Medi_Large_Distance"
-        android:text="lalalala\nlalalalala\nlululululululul\nlililili" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-</LinearLayout>
+        <TextView
+            style="@style/MediListElementHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/Medi_Large_Distance"
+            android:paddingRight="@dimen/Medi_Large_Distance"
+            android:text="Next usage:" />
+
+        <TextView
+            android:id="@+id/nextUsageTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/Medi_Large_Distance"
+            android:paddingRight="@dimen/Medi_Large_Distance"
+            android:text="10.10.2017 - 10:15 (+2 hours)" />
+
+
+        <TextView
+            style="@style/MediListElementHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/Medi_Large_Distance"
+            android:paddingLeft="@dimen/Medi_Large_Distance"
+            android:paddingRight="@dimen/Medi_Large_Distance"
+            android:text="Info:" />
+
+        <TextView
+            android:id="@+id/infoTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/Medi_Large_Distance"
+            android:paddingRight="@dimen/Medi_Large_Distance"
+            android:text="Drink some water!" />
+
+
+        <TextView
+            style="@style/MediListElementHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/Medi_Large_Distance"
+            android:paddingLeft="@dimen/Medi_Large_Distance"
+            android:paddingRight="@dimen/Medi_Large_Distance"
+            android:text="Amount:" />
+
+        <TextView
+            android:id="@+id/amountTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/Medi_Large_Distance"
+            android:paddingRight="@dimen/Medi_Large_Distance"
+            android:text="2 tablets" />
+
+
+        <TextView
+            style="@style/MediListElementHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/Medi_Large_Distance"
+            android:paddingLeft="@dimen/Medi_Large_Distance"
+            android:paddingRight="@dimen/Medi_Large_Distance"
+            android:text="Intervall:" />
+
+        <TextView
+            android:id="@+id/intervallTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/Medi_Large_Distance"
+            android:paddingRight="@dimen/Medi_Large_Distance"
+            android:text="tomorrow" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/Medi_Medium_Distance"
+            android:orientation="horizontal"
+            android:padding="@dimen/Medi_Small_Distance">
+
+            <Button
+                android:id="@+id/calendarButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_menu_gallery"
+                android:text="Calendar" />
+
+            <Button
+                android:id="@+id/editButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_menu_manage"
+                android:text="Edit" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
