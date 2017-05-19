@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,7 +16,7 @@
             android:id="@+id/nameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
+            android:hint="@string/settings_profile_hint_name"
             android:inputType="textPersonName" />
 
     </android.support.design.widget.TextInputLayout>
@@ -29,11 +30,11 @@
             android:id="@+id/birthdayET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:editable="false"
-            android:hint="Birthday"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:clickable="true"
+            android:hint="Birthday"
             android:inputType="textPersonName" />
 
     </android.support.design.widget.TextInputLayout>
@@ -82,6 +83,7 @@
             android:layout_height="wrap_content"
             android:hint="Height"
             android:inputType="textPersonName|numberDecimal" />
+
     </android.support.design.widget.TextInputLayout>
 
     <Button
