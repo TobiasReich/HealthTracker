@@ -15,18 +15,18 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/Medi_Icon_Size"
-        android:layout_marginTop="@dimen/Medi_Icon_Size"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/Medi_Large_Distance">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="@dimen/Medi_Medium_Icon_Size"
             android:layout_height="@dimen/Medi_Medium_Icon_Size"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ibu" />
+            app:srcCompat="@mipmap/ic_launcher_round" />
 
         <TextView
+            android:id="@+id/navHeadderTitleTV"
             style="@style/NavMenuHeadder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
