@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import de.tobiasreich.healthtracker.R;
+import de.tobiasreich.healthtracker.data.myMedicine.Medicine;
 
 /**
  * Created by T on 01.05.2017. */
@@ -40,7 +41,7 @@ class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
             holder.rootView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGrayOdd));
         else
             holder.rootView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white));
-        holder.titleTV.setText(medicine.title);
+        holder.titleTV.setText(medicine.getMedicineName());
         holder.descriptionTV.setText(medicine.description);
     }
 

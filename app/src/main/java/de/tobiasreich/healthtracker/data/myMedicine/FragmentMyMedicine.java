@@ -43,8 +43,8 @@ public class FragmentMyMedicine extends Fragment {
         noteET = (EditText) rootView.findViewById(R.id.noteET);
         insertButton = (Button) rootView.findViewById(R.id.insertButton);
         insertButton.setOnClickListener(v -> {
-            long result = dbHelper.insertData(5.5, System.currentTimeMillis(), 5, "Slept well!");
-            Toast.makeText(getActivity(), "Result: " + result, Toast.LENGTH_LONG).show();
+            // long result = dbHelper.insertData(5.5, System.currentTimeMillis(), 5, "Slept well!");
+            // Toast.makeText(getActivity(), "Result: " + result, Toast.LENGTH_LONG).show();
         });
         return rootView;
     }
