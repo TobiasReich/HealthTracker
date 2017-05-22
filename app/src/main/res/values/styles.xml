@@ -9,10 +9,10 @@
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
     </style>
 
     <!-- Styles for the app-->
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -44,6 +44,14 @@
         <item name="android:typeface">sans</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
+
+    <style name="MediListElementHeaderInverted" parent="@android:style/TextAppearance.Large">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 
     <!-- Header for LIST ELEMENTS etc. -->
     <style name="NavMenuHeadder" parent="@android:style/TextAppearance.Large">

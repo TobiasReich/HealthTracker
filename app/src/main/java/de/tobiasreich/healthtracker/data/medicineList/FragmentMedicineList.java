@@ -9,9 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.List;
@@ -33,14 +36,15 @@ public class FragmentMedicineList extends Fragment {
 
     private Button addButton;
 
+    private boolean sortByName = true;
 
+    private Spinner orderSpinner;
+    private ImageButton clearButton;
     private RecyclerView medicineRecycleView;
     private LinearLayoutManager medicineRVLayoutManager;
     private MedicineAdapter medicineAdapter;
 
     private List<String> allMedicins;
-
-
 
     public FragmentMedicineList() {
         // Required empty public constructor
@@ -56,13 +60,22 @@ public class FragmentMedicineList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_a, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_medicine_list, container, false);
 
+        allMedicins = DataManager.getMedicinesAutoCompleteList(getActivity());
+
+        clearButton = (ImageButton) rootView.findViewById(R.id.clearButton);
         addButton = (Button) rootView.findViewById(R.id.addButton);
+        medicineACTV = (AutoCompleteTextView) rootView.findViewById(R.id.medicineACTV);
+        medicineRecycleView = (RecyclerView) rootView.findViewById(R.id.medicineRecycleView);
+        orderSpinner = (Spinner) rootView.findViewById(R.id.orderSpinner);
+
+        clearButton.setOnClickListener(v -> cleatAutoCompleteTV());
         addButton.setOnClickListener(v -> {
             String name = medicineACTV.getText().toString();
 
             if (allMedicins.contains(name)) {
+                cleatAutoCompleteTV();
                 Medicine newMed = new Medicine(name);
                 newMed.description = "Esto es una descripcion interesante";
                 db.insertMedicine(newMed);
@@ -70,31 +83,49 @@ public class FragmentMedicineList extends Fragment {
                 //medicineAdapter.notifyDataSetChanged();
                 updateListOfMedicines();
             } else {
-                Toast.makeText(getActivity(),
-                    "Error, please select a medicine from the list", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Error, please select a medicine from the list", Toast.LENGTH_LONG).show();
             }
         });
 
-        allMedicins = DataManager.getMedicines(getResources().openRawResource(R.raw.medicines));
-        medicineACTV = (AutoCompleteTextView) rootView.findViewById(R.id.medicineACTV);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_dropdown_item_1line, allMedicins);
-        medicineACTV.setAdapter(adapter);
+        ArrayAdapter<String> autoCompleteAdapter
+                = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, allMedicins);
+        medicineACTV.setAdapter(autoCompleteAdapter);
 
-        // RECYCLER VIEW
-        medicineRecycleView = (RecyclerView) rootView.findViewById(R.id.medicineRecycleView);
         medicineRecycleView.setHasFixedSize(true);
-
         medicineRVLayoutManager = new LinearLayoutManager(getActivity());
         medicineRecycleView.setLayoutManager(medicineRVLayoutManager);
+
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.sortOrder,  R.layout.spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        orderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                sortByName = (position == 0);
+                updateListOfMedicines();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                sortByName = true;
+                updateListOfMedicines();
+            }
+        });
+        orderSpinner.setAdapter(adapter);
 
         updateListOfMedicines();
 
         return rootView;
     }
 
-    private void updateListOfMedicines(){
-        List<Medicine> userMeds = db.getAllMedicines();
+    private void cleatAutoCompleteTV() {
+        medicineACTV.setText("");
+        DataManager.closeSoftwareKeyboard(getActivity());
+    }
+
+    private void updateListOfMedicines() {
+        List<Medicine> userMeds = db.getAllMedicines(sortByName);
         medicineAdapter = new MedicineAdapter(userMeds, getActivity());
         medicineRecycleView.setAdapter(medicineAdapter);
     }

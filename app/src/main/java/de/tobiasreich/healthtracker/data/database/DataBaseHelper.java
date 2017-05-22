@@ -121,7 +121,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      *
      * @param medicineID id of the medicine to get
      * @return Medicine */
-    public Medicine getTodo(long medicineID) {
+    public Medicine getMedicine(long medicineID) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String selectQuery = "SELECT  * FROM " + TABLE_MEDICINES + " WHERE " + KEY_ID + " = " + medicineID;
@@ -144,9 +144,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     /** getting all medicines
      *
      * @return List of medicines */
-    public List<Medicine> getAllMedicines() {
+    public List<Medicine> getAllMedicines(boolean orderByName) {
         List<Medicine> todos = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + TABLE_MEDICINES;
+
+        String selectQuery;
+        if (orderByName)
+            selectQuery = "SELECT  * FROM " + TABLE_MEDICINES + " ORDER BY " + KEY_MEDICINE_NAME + " ASC";
+        else
+            selectQuery = "SELECT  * FROM " + TABLE_MEDICINES;
 
         Log.i(TAG, selectQuery);
 
@@ -166,5 +171,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return todos;
     }
 
+    /**
+     * Updating a medicine entry
+     *
+     * @param medicine
+     * @return int id of the row that was updated
+     */
+    public int updateMedicine(Medicine medicine) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_MEDICINE_NAME, medicine.getMedicineName());
+        values.put(KEY_MEDICINE_DESCRIPTION, medicine.getDescription());
+
+        // updating row
+        return db.update(TABLE_MEDICINES, values, KEY_ID + " = ?", new String[] { String.valueOf(medicine.getId()) });
+    }
 
 }
