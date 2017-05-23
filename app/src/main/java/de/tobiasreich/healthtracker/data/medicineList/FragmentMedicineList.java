@@ -15,17 +15,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.List;
 
 import de.tobiasreich.healthtracker.R;
 import de.tobiasreich.healthtracker.data.database.DataBaseHelper;
-import de.tobiasreich.healthtracker.data.database.DataManager;
 import de.tobiasreich.healthtracker.data.myMedicine.Medicine;
 
 
-public class FragmentMedicineList extends Fragment {
+public class FragmentMedicineList extends Fragment implements IMedicineListUpdate{
 
     private static final String TAG = FragmentMedicineList.class.getSimpleName();
 
@@ -42,9 +41,9 @@ public class FragmentMedicineList extends Fragment {
     private ImageButton clearButton;
     private RecyclerView medicineRecycleView;
     private LinearLayoutManager medicineRVLayoutManager;
+    private TextView noMedicineInListTV;
     private MedicineAdapter medicineAdapter;
 
-    private List<String> allMedicins;
 
     public FragmentMedicineList() {
         // Required empty public constructor
@@ -62,39 +61,17 @@ public class FragmentMedicineList extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_medicine_list, container, false);
 
-        allMedicins = DataManager.getMedicinesAutoCompleteList(getActivity());
-
-        clearButton = (ImageButton) rootView.findViewById(R.id.clearButton);
         addButton = (Button) rootView.findViewById(R.id.addButton);
         medicineACTV = (AutoCompleteTextView) rootView.findViewById(R.id.medicineACTV);
         medicineRecycleView = (RecyclerView) rootView.findViewById(R.id.medicineRecycleView);
         orderSpinner = (Spinner) rootView.findViewById(R.id.orderSpinner);
+        noMedicineInListTV = (TextView) rootView.findViewById(R.id.noMedicineInListTV);
 
-        clearButton.setOnClickListener(v -> cleatAutoCompleteTV());
-        addButton.setOnClickListener(v -> {
-            String name = medicineACTV.getText().toString();
-
-            if (allMedicins.contains(name)) {
-                cleatAutoCompleteTV();
-                Medicine newMed = new Medicine(name);
-                newMed.description = "Esto es una descripcion interesante";
-                db.insertMedicine(newMed);
-                Log.i(TAG, "Adding medicine done");
-                //medicineAdapter.notifyDataSetChanged();
-                updateListOfMedicines();
-            } else {
-                Toast.makeText(getActivity(), "Error, please select a medicine from the list", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        ArrayAdapter<String> autoCompleteAdapter
-                = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, allMedicins);
-        medicineACTV.setAdapter(autoCompleteAdapter);
+        addButton.setOnClickListener(v -> new MedicineListDialog(db, this, getActivity()).show());
 
         medicineRecycleView.setHasFixedSize(true);
         medicineRVLayoutManager = new LinearLayoutManager(getActivity());
         medicineRecycleView.setLayoutManager(medicineRVLayoutManager);
-
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.sortOrder,  R.layout.spinner_item);
@@ -119,21 +96,22 @@ public class FragmentMedicineList extends Fragment {
         return rootView;
     }
 
-    private void cleatAutoCompleteTV() {
-        medicineACTV.setText("");
-        DataManager.closeSoftwareKeyboard(getActivity());
-    }
-
-    private void updateListOfMedicines() {
+    public void updateListOfMedicines() {
         List<Medicine> userMeds = db.getAllMedicines(sortByName);
-        medicineAdapter = new MedicineAdapter(userMeds, getActivity());
-        medicineRecycleView.setAdapter(medicineAdapter);
+        if (userMeds.size() == 0) {
+            noMedicineInListTV.setVisibility(View.VISIBLE);
+            medicineRecycleView.setVisibility(View.GONE);
+        } else {
+            noMedicineInListTV.setVisibility(View.GONE);
+            medicineRecycleView.setVisibility(View.VISIBLE);
+            medicineAdapter = new MedicineAdapter(userMeds, getActivity());
+            medicineRecycleView.setAdapter(medicineAdapter);
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        // Log.d(TAG, "Closing DB");
         db.closeDB();
     }
 }

@@ -37,6 +37,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // MEDICINES Table - column names
     private static final String KEY_MEDICINE_NAME = "name";
     private static final String KEY_MEDICINE_DESCRIPTION = "description";
+    private static final String KEY_MEDICINE_AMOUNT = "amount";
 
     // PRESCRIPTIONS Table - column names
     private static final String KEY_PRESCRIPTIONS_TIMESTAMP = "timestamp";
@@ -52,7 +53,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_MEDICINE = "CREATE TABLE "
             + TABLE_MEDICINES + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_MEDICINE_NAME + " TEXT,"
-            + KEY_MEDICINE_DESCRIPTION + " TEXT)";
+            + KEY_MEDICINE_DESCRIPTION + " TEXT,"
+            + KEY_MEDICINE_AMOUNT + " INTEGER)";
 
     // Prescriptions table create statement
     private static final String CREATE_TABLE_PRESCRIPTIONS = "CREATE TABLE "
@@ -108,6 +110,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_MEDICINE_NAME, medicine.getMedicineName());
         values.put(KEY_MEDICINE_DESCRIPTION, medicine.getDescription());
+        values.put(KEY_MEDICINE_AMOUNT, medicine.getAmount());
 
         long column = db.insert(TABLE_MEDICINES, null, values);
 
@@ -137,6 +140,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         medicine.setId(c.getInt(c.getColumnIndex(KEY_ID)));
         medicine.setMedicineName((c.getString(c.getColumnIndex(KEY_MEDICINE_NAME))));
         medicine.setMedicineDescription(c.getString(c.getColumnIndex(KEY_MEDICINE_DESCRIPTION)));
+        medicine.setMedicineAmount(c.getInt(c.getColumnIndex(KEY_MEDICINE_AMOUNT)));
 
         return medicine;
     }
@@ -164,6 +168,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 medicine.setId(c.getInt(c.getColumnIndex(KEY_ID)));
                 medicine.setMedicineName((c.getString(c.getColumnIndex(KEY_MEDICINE_NAME))));
                 medicine.setMedicineDescription(c.getString(c.getColumnIndex(KEY_MEDICINE_DESCRIPTION)));
+                medicine.setMedicineAmount(c.getInt(c.getColumnIndex(KEY_MEDICINE_AMOUNT)));
                 todos.add(medicine);
             } while (c.moveToNext());
         }
@@ -181,6 +186,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_MEDICINE_NAME, medicine.getMedicineName());
         values.put(KEY_MEDICINE_DESCRIPTION, medicine.getDescription());
+        values.put(KEY_MEDICINE_AMOUNT, medicine.getAmount());
 
         // updating row
         return db.update(TABLE_MEDICINES, values, KEY_ID + " = ?", new String[] { String.valueOf(medicine.getId()) });

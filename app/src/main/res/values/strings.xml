@@ -10,6 +10,13 @@
 
 
     <!-- Settings -->
-    <string name="settings_profile_hint_name">Please write your Name</string>
+    <string name="settings_profile_hint_name">Please write your Name</string>#
+
+    <!-- Medicine List Dialog -->
+    <string name="medicine_list_dialog_title">Add / Change medicine</string>
+    <string name="medicine_list_dialog_hint_description">Description</string>
+    <string name="medicine_list_dialog_name">Medicine name</string>
+    <string name="medicine_list_no_elements_in_list">You have no medicine in your list</string>
+    <string name="medicine_list_dialog_amount">Amount (active ingredient)</string>
 
 </resources>

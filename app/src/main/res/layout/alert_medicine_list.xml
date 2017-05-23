@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/Medi_Huge_Distance"
+    android:background="@drawable/solid_white_black_stroke_rounded"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/Medi_Huge_Distance"
+    android:paddingLeft="@dimen/Medi_Huge_Distance"
+    android:paddingRight="@dimen/Medi_Huge_Distance"
+    android:paddingTop="@dimen/Medi_Huge_Distance">
+
+    <TextView
+        style="@style/MediListElementHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/Medi_Large_Distance"
+        android:gravity="center"
+        android:text="@string/medicine_list_dialog_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:id="@+id/medicineACTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/medicine_list_dialog_name"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+
+    <!-- Description -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/Medi_Huge_Distance"
+        android:layout_weight="1"
+        android:text="@string/medicine_list_dialog_hint_description" />
+
+    <EditText
+        android:id="@+id/descriptionET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:maxLines="1"
+        android:minLines="1"
+        android:singleLine="true" />
+
+
+    <!-- Amount -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/Medi_Huge_Distance"
+        android:layout_weight="1"
+        android:text="Amount" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/amountET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:imeOptions="actionDone"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:minLines="1"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/Medi_Small_Distance"
+            android:text="mg" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addPhotoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/Medi_Large_Distance"
+        android:drawableLeft="@drawable/ic_menu_camera"
+        android:text="Add Photo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/Medi_Huge_Distance"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancelButton"
+            style="@style/MediListElementHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/Medi_Icon_Size"
+            android:layout_marginRight="@dimen/Medi_Small_Distance"
+            android:layout_weight="1"
+            android:background="@drawable/solid_white_black_stroke_rounded"
+            android:text="@android:string/cancel" />
+
+        <Button
+            android:id="@+id/saveMedicineButton"
+            style="@style/MediListElementHeaderInverted"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/Medi_Icon_Size"
+            android:layout_marginLeft="@dimen/Medi_Small_Distance"
+            android:layout_weight="1"
+            android:background="@drawable/button_toggle"
+            android:enabled="false"
+            android:text="@android:string/ok"
+            android:textColor="@color/add_medicine_button_toggle_color" />
+    </LinearLayout>
+
+</LinearLayout>

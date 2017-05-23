@@ -18,6 +18,8 @@ import de.tobiasreich.healthtracker.data.myMedicine.Medicine;
  * Created by T on 01.05.2017. */
 class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
 
+    private static final String NO_DESCRIPTION_PLACEHOLDER = "- - -";
+
     private List<Medicine> meds;
     private Context context;
 
@@ -42,7 +44,19 @@ class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
         else
             holder.rootView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white));
         holder.titleTV.setText(medicine.getMedicineName());
-        holder.descriptionTV.setText(medicine.description);
+        if (medicine.description == null || "".equals(medicine.description)) {
+            holder.descriptionTV.setVisibility(View.GONE);
+        } else {
+            holder.descriptionTV.setVisibility(View.VISIBLE);
+            holder.descriptionTV.setText(medicine.description);
+        }
+
+        if (medicine.amount == 0) {
+            holder.amountTV.setVisibility(View.GONE);
+        } else {
+            holder.amountTV.setVisibility(View.VISIBLE);
+            holder.amountTV.setText(Integer.toString(medicine.amount));
+        }
     }
 
     @Override
@@ -55,14 +69,16 @@ class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
         public View rootView;
         public TextView titleTV;
         public TextView descriptionTV;
-        public ImageView imageView;
+        public TextView amountTV;
+        public ImageView medicineIV;
 
         public ViewHolder(View rootView) {
             super(rootView);
             this.rootView = rootView;
             titleTV = (TextView) rootView.findViewById(R.id.titleTV);
             descriptionTV = (TextView) rootView.findViewById(R.id.descriptionTV);
-            imageView = (ImageView) rootView.findViewById(R.id.imageView);
+            amountTV = (TextView) rootView.findViewById(R.id.amountTV);
+            medicineIV = (ImageView) rootView.findViewById(R.id.medicineIV);
         }
     }
 

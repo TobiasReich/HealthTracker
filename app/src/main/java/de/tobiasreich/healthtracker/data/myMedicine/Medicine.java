@@ -10,6 +10,7 @@ public class Medicine {
     public int id;
     public String name;
     public String description;
+    public int amount;
 
     // constructors
     public Medicine() {
@@ -19,9 +20,10 @@ public class Medicine {
         this.name = name;
     }
 
-    public Medicine(int id, String name) {
+    public Medicine(int id, String name, int amount) {
         this.id = id;
         this.name = name;
+        this.amount = amount;
     }
 
     // setter
@@ -63,4 +65,11 @@ public class Medicine {
         return meds;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setMedicineAmount(int amount) {
+        this.amount = amount;
+    }
 }
