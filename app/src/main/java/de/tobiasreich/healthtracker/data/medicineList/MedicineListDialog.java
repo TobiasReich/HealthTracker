@@ -6,8 +6,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.provider.ContactsContract;
+import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,8 +22,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import de.tobiasreich.healthtracker.R;
@@ -41,6 +43,9 @@ public class MedicineListDialog extends Dialog {
 
     private Context context;
     private Bitmap medicinePhoto;
+    private File photoFile;
+    private Uri photoURI;
+
 
     private ImageView medicineIV;
 
@@ -90,10 +95,22 @@ public class MedicineListDialog extends Dialog {
         });
 
         addPhotoButton.setOnClickListener(v -> {
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
-                fragment.startActivityForResult(takePictureIntent, FragmentMedicineList.REQUEST_MEDICINE_IMAGE_CAPTURE);
+            Intent getCameraImageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+            photoFile = null;
+            try {
+                photoFile = DataManager.createTempImageFileForCamera("MedicineA", 150, context);
+            } catch (IOException e) {
+                Log.e(TAG, "Error creating Temp file");
             }
+            if (photoFile != null) {
+                photoURI = FileProvider.getUriForFile(context,
+                        "de.tobiasreich.healthtracker.fileprovider",
+                        photoFile);
+                getCameraImageIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                fragment.startActivityForResult(getCameraImageIntent, FragmentMedicineList.REQUEST_MEDICINE_IMAGE_CAPTURE);
+            }
+
         });
 
 
@@ -119,10 +136,12 @@ public class MedicineListDialog extends Dialog {
         });
     }
 
-    public void setBitmap(Bitmap bitmap){
-        this.medicinePhoto = bitmap;
+    public void setBitmap(){
+        //this.medicinePhoto = bitmap;
+        Log.i(TAG, "Loading Image-Path: " + photoFile.getAbsolutePath());
         Glide.with(context)
-                .load(DataManager.bitmapToByte(bitmap))
+                //.load(DataManager.bitmapToByte(bitmap))
+                .load(photoFile)
                 .asBitmap().override(300, 300)
                 .fitCenter()
                 .into(medicineIV);

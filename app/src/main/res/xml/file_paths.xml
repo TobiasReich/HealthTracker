@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path name="medicine_images" path="Android/data/de.tobiasreich.healthtracker/files/Pictures" />
+</paths>

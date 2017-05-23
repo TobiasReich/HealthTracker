@@ -122,10 +122,8 @@ public class FragmentMedicineList extends Fragment implements IMedicineListUpdat
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_MEDICINE_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
             if (dialog != null && dialog.isShowing())
-                dialog.setBitmap(imageBitmap);
+                dialog.setBitmap();
             else
                 Log.e(TAG, "Dialog is NOT showing.");
         }

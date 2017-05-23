@@ -3,6 +3,7 @@
     package="de.tobiasreich.healthtracker">
 
     <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
 
 
     <application
@@ -21,6 +22,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <!-- FileProfider for accessing images using the camera
+        https://developer.android.com/training/camera/photobasics.html -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="de.tobiasreich.healthtracker.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
 
     </application>
 
