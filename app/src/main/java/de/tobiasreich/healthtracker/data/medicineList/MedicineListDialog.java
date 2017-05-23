@@ -69,7 +69,7 @@ public class MedicineListDialog extends Dialog {
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         medicineIV = (ImageView) findViewById(R.id.medicineIV);
-        ImageButton addPhotoButton = (ImageButton) findViewById(R.id.addPhotoButton);
+        Button addPhotoButton = (Button) findViewById(R.id.addPhotoButton);
         Button saveMedicineButton = (Button) findViewById(R.id.saveMedicineButton);
         descriptionET = (EditText) findViewById(R.id.descriptionET);
         amountET = (EditText) findViewById(R.id.amountET);
