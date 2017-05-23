@@ -106,8 +106,8 @@ public class DataManager {
      *
      * @return File that was created*/
     public static File createTempImageFileForCamera(String medicineName, int ingredientAmount, Context context) throws IOException {
-        //File storageDir = getMedicineImagePath(context);
-        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = getMedicineImagePath(context);
+        //File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         Log.d(TAG, "Required Path: " + storageDir.getAbsolutePath());
         File tempFile = new File(storageDir,medicineName + "_" + ingredientAmount + ".jpg");
         Log.d(TAG, "Prepared Camera Image: " + tempFile.getAbsolutePath());
@@ -117,8 +117,9 @@ public class DataManager {
     /** Returns Generates the path String for a certain
      *
      * @return Path as String */
-    private static File getMedicineImagePath(Context context){
-        return context.getDir("medicine_images", Context.MODE_PRIVATE);
+    public static File getMedicineImagePath(Context context){
+        // return context.getDir("medicine_images", Context.MODE_PRIVATE);
+        return  context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
     }
 
     /** This ensures the creation of a given path. If this path did not exist, the method tries to

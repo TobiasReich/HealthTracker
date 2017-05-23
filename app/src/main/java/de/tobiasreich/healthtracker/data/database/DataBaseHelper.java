@@ -38,6 +38,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String KEY_MEDICINE_NAME = "name";
     private static final String KEY_MEDICINE_DESCRIPTION = "description";
     private static final String KEY_MEDICINE_AMOUNT = "amount";
+    private static final String KEY_MEDICINE_PATH = "path";
 
     // PRESCRIPTIONS Table - column names
     private static final String KEY_PRESCRIPTIONS_TIMESTAMP = "timestamp";
@@ -54,7 +55,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + TABLE_MEDICINES + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_MEDICINE_NAME + " TEXT,"
             + KEY_MEDICINE_DESCRIPTION + " TEXT,"
-            + KEY_MEDICINE_AMOUNT + " INTEGER)";
+            + KEY_MEDICINE_AMOUNT + " INTEGER,"
+            + KEY_MEDICINE_PATH + " TEXT)";
 
     // Prescriptions table create statement
     private static final String CREATE_TABLE_PRESCRIPTIONS = "CREATE TABLE "
@@ -111,6 +113,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         values.put(KEY_MEDICINE_NAME, medicine.getMedicineName());
         values.put(KEY_MEDICINE_DESCRIPTION, medicine.getDescription());
         values.put(KEY_MEDICINE_AMOUNT, medicine.getAmount());
+        values.put(KEY_MEDICINE_PATH, medicine.getPath());
 
         long column = db.insert(TABLE_MEDICINES, null, values);
 
@@ -141,6 +144,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         medicine.setMedicineName((c.getString(c.getColumnIndex(KEY_MEDICINE_NAME))));
         medicine.setMedicineDescription(c.getString(c.getColumnIndex(KEY_MEDICINE_DESCRIPTION)));
         medicine.setMedicineAmount(c.getInt(c.getColumnIndex(KEY_MEDICINE_AMOUNT)));
+        medicine.setMedicinePath(c.getString(c.getColumnIndex(KEY_MEDICINE_PATH)));
 
         return medicine;
     }
@@ -169,6 +173,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 medicine.setMedicineName((c.getString(c.getColumnIndex(KEY_MEDICINE_NAME))));
                 medicine.setMedicineDescription(c.getString(c.getColumnIndex(KEY_MEDICINE_DESCRIPTION)));
                 medicine.setMedicineAmount(c.getInt(c.getColumnIndex(KEY_MEDICINE_AMOUNT)));
+                medicine.setMedicinePath(c.getString(c.getColumnIndex(KEY_MEDICINE_PATH)));
                 todos.add(medicine);
             } while (c.moveToNext());
         }

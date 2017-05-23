@@ -3,22 +3,27 @@ package de.tobiasreich.healthtracker.data.medicineList;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import java.io.File;
 import java.util.List;
 
 import de.tobiasreich.healthtracker.R;
+import de.tobiasreich.healthtracker.data.database.DataManager;
 import de.tobiasreich.healthtracker.data.myMedicine.Medicine;
 
 /**
  * Created by T on 01.05.2017. */
 class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
 
-    private static final String NO_DESCRIPTION_PLACEHOLDER = "- - -";
+    private static final String TAG = MedicineAdapter.class.getSimpleName();
 
     private List<Medicine> meds;
     private Context context;
@@ -57,6 +62,20 @@ class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
             holder.amountTV.setVisibility(View.VISIBLE);
             holder.amountTV.setText(Integer.toString(medicine.amount));
         }
+
+        if (medicine.imagePath == null || "".equals(medicine.imagePath)) {
+            holder.medicineIV.setVisibility(View.GONE);
+        } else {
+            holder.medicineIV.setVisibility(View.VISIBLE);
+            File imageFile = new File(DataManager.getMedicineImagePath(context), medicine.imagePath);
+            //Log.d(TAG, "Image File for " + medicine.name + " : " + medicine.imagePath);
+            Glide.with(context)
+                    .load(imageFile)
+                    .asBitmap().override(300, 300)
+                    .fitCenter()
+                    .into(holder.medicineIV);
+        }
+
     }
 
     @Override

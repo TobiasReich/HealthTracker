@@ -3,7 +3,6 @@ package de.tobiasreich.healthtracker.data.medicineList;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -41,12 +40,14 @@ public class MedicineListDialog extends Dialog {
 
     private final String TAG = getClass().getSimpleName();
 
+    private static final String FILE_PROVIDER_AUTHORITY = "de.tobiasreich.healthtracker.fileprovider";
+
     private Context context;
-    private Bitmap medicinePhoto;
     private File photoFile;
-    private Uri photoURI;
 
-
+    private AutoCompleteTextView medicineACTV;
+    private EditText descriptionET;
+    private EditText amountET;
     private ImageView medicineIV;
 
     public MedicineListDialog(final DataBaseHelper db, IMedicineListUpdate callback,
@@ -70,9 +71,9 @@ public class MedicineListDialog extends Dialog {
         medicineIV = (ImageView) findViewById(R.id.medicineIV);
         ImageButton addPhotoButton = (ImageButton) findViewById(R.id.addPhotoButton);
         Button saveMedicineButton = (Button) findViewById(R.id.saveMedicineButton);
-        EditText descriptionET = (EditText) findViewById(R.id.descriptionET);
-        EditText amountET = (EditText) findViewById(R.id.amountET);
-        AutoCompleteTextView medicineACTV = (AutoCompleteTextView) findViewById(R.id.medicineACTV);
+        descriptionET = (EditText) findViewById(R.id.descriptionET);
+        amountET = (EditText) findViewById(R.id.amountET);
+        medicineACTV = (AutoCompleteTextView) findViewById(R.id.medicineACTV);
 
         List<String> allMedicins = DataManager.getMedicinesAutoCompleteList(context);
 
@@ -80,10 +81,12 @@ public class MedicineListDialog extends Dialog {
 
         medicineACTV.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable text) {
@@ -99,20 +102,19 @@ public class MedicineListDialog extends Dialog {
 
             photoFile = null;
             try {
-                photoFile = DataManager.createTempImageFileForCamera("MedicineA", 150, context);
+                photoFile = DataManager.createTempImageFileForCamera(getName(), getAmountValue(), context);
             } catch (IOException e) {
-                Log.e(TAG, "Error creating Temp file");
+                Log.e(TAG, "Error creating photo-file");
+                return;
             }
             if (photoFile != null) {
-                photoURI = FileProvider.getUriForFile(context,
-                        "de.tobiasreich.healthtracker.fileprovider",
+                Uri photoURI = FileProvider.getUriForFile(context,
+                        FILE_PROVIDER_AUTHORITY,
                         photoFile);
                 getCameraImageIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 fragment.startActivityForResult(getCameraImageIntent, FragmentMedicineList.REQUEST_MEDICINE_IMAGE_CAPTURE);
             }
-
         });
-
 
         ArrayAdapter<String> autoCompleteAdapter
                 = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, allMedicins);
@@ -120,30 +122,72 @@ public class MedicineListDialog extends Dialog {
 
         saveMedicineButton.setOnClickListener(v -> {
             Medicine newMed = new Medicine();
-            newMed.name = medicineACTV.getText().toString();
-            newMed.description = descriptionET.getText().toString();
-            double amount = 0;
-            try {
-                amount = Double.parseDouble(amountET.getText().toString());
-            } catch (Exception ex) {
-                Log.e(TAG, "Error parsing the amount " + amountET.getText().toString() + ". Set it to 0");
-            }
-            newMed.amount = (int) amount;
+
+            newMed.name = getName();
+            newMed.description = getDescription();
+            newMed.amount = getAmountValue();
+            newMed.imagePath = getImageName();
+
             db.insertMedicine(newMed);
-            Log.i(TAG, "Adding medicine done");
             callback.updateListOfMedicines();
             dismiss();
         });
     }
 
-    public void setBitmap(){
-        //this.medicinePhoto = bitmap;
-        Log.i(TAG, "Loading Image-Path: " + photoFile.getAbsolutePath());
+    private String getDescription() {
+        return descriptionET.getText().toString();
+    }
+
+    /**
+     * Gets the value from the amount EditText.
+     * <p>
+     * Returns 0 if no valid value is given.
+     *
+     * @return int with the amount; 0 if anything goes wrong
+     */
+    private int getAmountValue() {
+        double amount = 0;
+        try {
+            amount = Double.parseDouble(amountET.getText().toString());
+        } catch (Exception ex) {
+            Log.e(TAG, "Error parsing the amount " + amountET.getText().toString() + ". Set it to 0");
+        }
+        return (int) amount;
+    }
+
+    /**
+     * Gets the imagePath in case there is one.
+     * <p>
+     * Returns an empty String in case no imageName exists.
+     *
+     * @return String with the image Name (without a path)
+     */
+    public String getImageName() {
+        if (photoFile != null)
+            return photoFile.getName();
+        return "";
+    }
+
+    /**
+     * Gets the name written in the AutoCompleteTextView
+     *
+     * @return String with the name
+     */
+    public String getName() {
+        return medicineACTV.getText().toString();
+    }
+
+
+    /**
+     * Callback Method for showing the recently made camera image in the ImageView
+     */
+    public void showBitmap() {
         Glide.with(context)
-                //.load(DataManager.bitmapToByte(bitmap))
                 .load(photoFile)
                 .asBitmap().override(300, 300)
                 .fitCenter()
                 .into(medicineIV);
     }
+
+
 }

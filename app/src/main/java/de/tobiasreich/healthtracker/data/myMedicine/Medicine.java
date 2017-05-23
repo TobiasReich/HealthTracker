@@ -10,6 +10,7 @@ public class Medicine {
     public int id;
     public String name;
     public String description;
+    public String imagePath;
     public int amount;
 
     // constructors
@@ -20,10 +21,11 @@ public class Medicine {
         this.name = name;
     }
 
-    public Medicine(int id, String name, int amount) {
+    public Medicine(int id, String name, String imagePath, int amount) {
         this.id = id;
         this.name = name;
         this.amount = amount;
+        this.imagePath = imagePath;
     }
 
     // setter
@@ -37,6 +39,14 @@ public class Medicine {
 
     public void setMedicineDescription(String description) {
         this.description = description;
+    }
+
+    public void setMedicinePath(String path) {
+        this.imagePath = path;
+    }
+
+    public void setMedicineAmount(int amount) {
+        this.amount = amount;
     }
 
     // getter
@@ -69,7 +79,7 @@ public class Medicine {
         return amount;
     }
 
-    public void setMedicineAmount(int amount) {
-        this.amount = amount;
+    public String getPath() {
+        return imagePath;
     }
 }

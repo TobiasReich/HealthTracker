@@ -2,7 +2,6 @@ package de.tobiasreich.healthtracker.data.medicineList;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -123,7 +122,7 @@ public class FragmentMedicineList extends Fragment implements IMedicineListUpdat
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_MEDICINE_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (dialog != null && dialog.isShowing())
-                dialog.setBitmap();
+                dialog.showBitmap();
             else
                 Log.e(TAG, "Dialog is NOT showing.");
         }
