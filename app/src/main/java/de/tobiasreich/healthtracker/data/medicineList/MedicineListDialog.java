@@ -81,19 +81,20 @@ public class MedicineListDialog extends Dialog {
 
         medicineACTV.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             @Override
             public void afterTextChanged(Editable text) {
-                if (text.toString().trim().length() >= 3)
+                if (text.toString().trim().length() >= 3) {
                     saveMedicineButton.setEnabled(true);
-                else
+                    addPhotoButton.setEnabled(true);
+                }else {
                     saveMedicineButton.setEnabled(false);
+                    addPhotoButton.setEnabled(false);
+                }
             }
         });
 
@@ -108,9 +109,7 @@ public class MedicineListDialog extends Dialog {
                 return;
             }
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(context,
-                        FILE_PROVIDER_AUTHORITY,
-                        photoFile);
+                Uri photoURI = FileProvider.getUriForFile(context, FILE_PROVIDER_AUTHORITY, photoFile);
                 getCameraImageIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 fragment.startActivityForResult(getCameraImageIntent, FragmentMedicineList.REQUEST_MEDICINE_IMAGE_CAPTURE);
             }

@@ -64,14 +64,19 @@ class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
         }
 
         if (medicine.imagePath == null || "".equals(medicine.imagePath)) {
-            holder.medicineIV.setVisibility(View.GONE);
+            Glide.with(context)
+                    .load("")
+                    .placeholder(R.drawable.medicine_placeholder)
+                    .override(300, 300)
+                    .fitCenter()
+                    .into(holder.medicineIV);
         } else {
-            holder.medicineIV.setVisibility(View.VISIBLE);
-            File imageFile = new File(DataManager.getMedicineImagePath(context), medicine.imagePath);
             //Log.d(TAG, "Image File for " + medicine.name + " : " + medicine.imagePath);
+            File imageFile = new File(DataManager.getMedicineImagePath(context), medicine.imagePath);
             Glide.with(context)
                     .load(imageFile)
-                    .asBitmap().override(300, 300)
+                    .asBitmap()
+                    .override(300, 300)
                     .fitCenter()
                     .into(holder.medicineIV);
         }
