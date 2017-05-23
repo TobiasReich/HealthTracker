@@ -52,64 +52,82 @@
 
     <!-- Description -->
 
-    <TextView
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/Medi_Huge_Distance"
-        android:layout_weight="1"
-        android:text="@string/medicine_list_dialog_hint_description" />
+        android:layout_marginTop="@dimen/Medi_Medium_Distance">
 
-    <EditText
-        android:id="@+id/descriptionET"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:maxLines="1"
-        android:minLines="1"
-        android:singleLine="true" />
+        <EditText
+            android:id="@+id/descriptionET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/medicine_list_dialog_hint_description"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minLines="1"
+            android:singleLine="true" />
 
+
+    </android.support.design.widget.TextInputLayout>
 
     <!-- Amount -->
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/Medi_Huge_Distance"
-        android:layout_weight="1"
-        android:text="Amount" />
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/Medi_Medium_Distance"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/amountET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/medicine_list_dialog_hint_amount"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+                android:singleLine="true" />
+
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/Medi_Small_Distance"
+            android:layout_marginLeft="@dimen/Medi_Small_Distance"
+            android:text="mg" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/amountET"
+        <ImageButton
+            android:id="@+id/addPhotoButton"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/Medi_Large_Distance"
+            android:background="@drawable/ic_menu_camera" />
+
+        <ImageView
+            android:id="@+id/medicineIV"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:imeOptions="actionDone"
-            android:inputType="numberDecimal"
-            android:maxLines="1"
-            android:minLines="1"
-            android:singleLine="true" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/Medi_Small_Distance"
-            android:text="mg" />
-
+            app:srcCompat="@mipmap/ic_launcher" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/addPhotoButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/Medi_Large_Distance"
-        android:drawableLeft="@drawable/ic_menu_camera"
-        android:text="Add Photo" />
 
     <LinearLayout
         android:layout_width="match_parent"

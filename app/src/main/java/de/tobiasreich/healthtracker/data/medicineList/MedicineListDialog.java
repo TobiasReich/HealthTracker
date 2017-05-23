@@ -1,11 +1,13 @@
 package de.tobiasreich.healthtracker.data.medicineList;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
+import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,14 +18,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import java.util.List;
 
 import de.tobiasreich.healthtracker.R;
 import de.tobiasreich.healthtracker.data.database.DataBaseHelper;
 import de.tobiasreich.healthtracker.data.database.DataManager;
-import de.tobiasreich.healthtracker.data.medicineList.IMedicineListUpdate;
 import de.tobiasreich.healthtracker.data.myMedicine.Medicine;
 
 /**
@@ -35,9 +39,15 @@ public class MedicineListDialog extends Dialog {
 
     private final String TAG = getClass().getSimpleName();
 
-    public MedicineListDialog(final DataBaseHelper db,
-                              IMedicineListUpdate callback, @NonNull final Context context) {
+    private Context context;
+    private Bitmap medicinePhoto;
+
+    private ImageView medicineIV;
+
+    public MedicineListDialog(final DataBaseHelper db, IMedicineListUpdate callback,
+                              FragmentMedicineList fragment, final Context context) {
         super(context);
+        this.context = context;
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.alert_medicine_list);
@@ -52,7 +62,8 @@ public class MedicineListDialog extends Dialog {
         window.setAttributes(lp);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        Button addPhotoButton = (Button) findViewById(R.id.addPhotoButton);
+        medicineIV = (ImageView) findViewById(R.id.medicineIV);
+        ImageButton addPhotoButton = (ImageButton) findViewById(R.id.addPhotoButton);
         Button saveMedicineButton = (Button) findViewById(R.id.saveMedicineButton);
         EditText descriptionET = (EditText) findViewById(R.id.descriptionET);
         EditText amountET = (EditText) findViewById(R.id.amountET);
@@ -78,6 +89,14 @@ public class MedicineListDialog extends Dialog {
             }
         });
 
+        addPhotoButton.setOnClickListener(v -> {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
+                fragment.startActivityForResult(takePictureIntent, FragmentMedicineList.REQUEST_MEDICINE_IMAGE_CAPTURE);
+            }
+        });
+
+
         ArrayAdapter<String> autoCompleteAdapter
                 = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, allMedicins);
         medicineACTV.setAdapter(autoCompleteAdapter);
@@ -98,5 +117,14 @@ public class MedicineListDialog extends Dialog {
             callback.updateListOfMedicines();
             dismiss();
         });
+    }
+
+    public void setBitmap(Bitmap bitmap){
+        this.medicinePhoto = bitmap;
+        Glide.with(context)
+                .load(DataManager.bitmapToByte(bitmap))
+                .asBitmap().override(300, 300)
+                .fitCenter()
+                .into(medicineIV);
     }
 }

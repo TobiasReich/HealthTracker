@@ -1,6 +1,8 @@
 package de.tobiasreich.healthtracker.data.medicineList;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -23,22 +24,24 @@ import de.tobiasreich.healthtracker.R;
 import de.tobiasreich.healthtracker.data.database.DataBaseHelper;
 import de.tobiasreich.healthtracker.data.myMedicine.Medicine;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class FragmentMedicineList extends Fragment implements IMedicineListUpdate{
 
     private static final String TAG = FragmentMedicineList.class.getSimpleName();
+    public static final int REQUEST_MEDICINE_IMAGE_CAPTURE = 1234;
 
     private AutoCompleteTextView medicineACTV;
 
-    // Database Helper
-    private DataBaseHelper db;
+    private DataBaseHelper dbHelper;
 
+    private MedicineListDialog dialog;
     private Button addButton;
 
     private boolean sortByName = true;
 
     private Spinner orderSpinner;
-    private ImageButton clearButton;
     private RecyclerView medicineRecycleView;
     private LinearLayoutManager medicineRVLayoutManager;
     private TextView noMedicineInListTV;
@@ -52,13 +55,17 @@ public class FragmentMedicineList extends Fragment implements IMedicineListUpdat
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "OnCreate -> creating new db");
-        db = new DataBaseHelper(getActivity());
+        dbHelper = new DataBaseHelper(getActivity());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        dbHelper.closeDB();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.fragment_medicine_list, container, false);
 
         addButton = (Button) rootView.findViewById(R.id.addButton);
@@ -67,7 +74,10 @@ public class FragmentMedicineList extends Fragment implements IMedicineListUpdat
         orderSpinner = (Spinner) rootView.findViewById(R.id.orderSpinner);
         noMedicineInListTV = (TextView) rootView.findViewById(R.id.noMedicineInListTV);
 
-        addButton.setOnClickListener(v -> new MedicineListDialog(db, this, getActivity()).show());
+        addButton.setOnClickListener(v -> {
+            dialog = new MedicineListDialog(dbHelper, this, this, getActivity());
+            dialog.show();
+        });
 
         medicineRecycleView.setHasFixedSize(true);
         medicineRVLayoutManager = new LinearLayoutManager(getActivity());
@@ -97,7 +107,7 @@ public class FragmentMedicineList extends Fragment implements IMedicineListUpdat
     }
 
     public void updateListOfMedicines() {
-        List<Medicine> userMeds = db.getAllMedicines(sortByName);
+        List<Medicine> userMeds = dbHelper.getAllMedicines(sortByName);
         if (userMeds.size() == 0) {
             noMedicineInListTV.setVisibility(View.VISIBLE);
             medicineRecycleView.setVisibility(View.GONE);
@@ -110,8 +120,14 @@ public class FragmentMedicineList extends Fragment implements IMedicineListUpdat
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        db.closeDB();
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_MEDICINE_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            if (dialog != null && dialog.isShowing())
+                dialog.setBitmap(imageBitmap);
+            else
+                Log.e(TAG, "Dialog is NOT showing.");
+        }
     }
 }
