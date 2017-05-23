@@ -77,7 +77,10 @@ public class MedicineListDialog extends Dialog {
 
         List<String> allMedicins = DataManager.getMedicinesAutoCompleteList(context);
 
-        findViewById(R.id.cancelButton).setOnClickListener(v -> dismiss());
+        findViewById(R.id.cancelButton).setOnClickListener(v -> {
+            //TODO: Delete the image if the save button was not pressed.
+            dismiss();
+        });
 
         medicineACTV.addTextChangedListener(new TextWatcher() {
             @Override

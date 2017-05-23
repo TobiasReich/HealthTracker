@@ -13,8 +13,7 @@
         android:id="@+id/medicineIV"
         android:layout_width="@dimen/Medi_Icon_Size"
         android:layout_height="@dimen/Medi_Icon_Size"
-        android:layout_marginRight="@dimen/Medi_Small_Distance"
-        app:srcCompat="@drawable/ibu" />
+        android:layout_marginRight="@dimen/Medi_Small_Distance" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -28,7 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Title"
             android:textStyle="bold" />
 
         <TextView
@@ -39,8 +37,7 @@
             android:layout_weight="1"
             android:maxLines="1"
             android:minLines="1"
-            android:singleLine="true"
-            android:text="Description" />
+            android:singleLine="true" />
 
         <LinearLayout
             android:layout_width="match_parent"

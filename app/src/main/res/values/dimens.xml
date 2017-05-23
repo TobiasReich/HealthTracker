@@ -9,7 +9,7 @@
     <dimen name="Medi_Icon_Size">40dp</dimen>
     <dimen name="Medi_Medium_Icon_Size">55dp</dimen>
     <dimen name="Medi_Large_Icon_Size">85dp</dimen>
-    <dimen name="Medi_Photo_Size">130dp</dimen>
+    <dimen name="Medi_Photo_Size">140dp</dimen>
 
     <dimen name="nav_header_height">160dp</dimen>
 

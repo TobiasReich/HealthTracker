@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.util.List;
+import java.util.Locale;
 
 import de.tobiasreich.healthtracker.R;
 import de.tobiasreich.healthtracker.data.database.DataManager;
@@ -60,7 +61,7 @@ class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
             holder.amountTV.setVisibility(View.GONE);
         } else {
             holder.amountTV.setVisibility(View.VISIBLE);
-            holder.amountTV.setText(Integer.toString(medicine.amount));
+            holder.amountTV.setText(String.format(Locale.getDefault(),"%d", medicine.amount));
         }
 
         if (medicine.imagePath == null || "".equals(medicine.imagePath)) {

@@ -17,7 +17,11 @@
     <string name="medicine_list_dialog_hint_description">Description</string>
     <string name="medicine_list_dialog_hint_amount">Amount (active ingredient)</string>
     <string name="medicine_list_dialog_name">Medicine name</string>
-    <string name="medicine_list_no_elements_in_list">You have no medicine in your list</string>
     <string name="medicine_list_dialog_amount">Amount (active ingredient)</string>
+    <string name="medicine_list_dialog_add_photo">Add</string>
+
+    <string name="medicine_list_no_elements_in_list">You have no medicine in your list</string>
+    <string name="medicine_list_item_amount">Amount:</string>
+    <string name="medicine_list_item_mg">mg</string>
 
 </resources>

@@ -56,7 +56,7 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/Medi_Medium_Distance">
+        android:layout_marginTop="@dimen/Medi_Small_Distance">
 
         <EditText
             android:id="@+id/descriptionET"
@@ -76,13 +76,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/Medi_Small_Distance"
         android:gravity="bottom"
         android:orientation="horizontal">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/Medi_Medium_Distance"
             android:layout_weight="1">
 
             <EditText
@@ -132,7 +132,7 @@
             android:drawableLeft="@drawable/ic_menu_camera"
             android:enabled="false"
             android:padding="@dimen/Medi_Tiny_Distance"
-            android:text="Add"
+            android:text="@string/medicine_list_dialog_add_photo"
             android:textColor="@color/add_medicine_button_toggle_color" />
 
 
