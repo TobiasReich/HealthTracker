@@ -197,4 +197,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return db.update(TABLE_MEDICINES, values, KEY_ID + " = ?", new String[] { String.valueOf(medicine.getId()) });
     }
 
+    /** Delete a medicine from the list
+     *
+     * @param id the ID of the medicine to delete */
+    public void deleteMedicineFromList(long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_MEDICINES, KEY_ID + " = ?", new String[] { String.valueOf(id) });
+    }
+
+
 }

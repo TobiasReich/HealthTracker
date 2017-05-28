@@ -46,13 +46,13 @@ public class FragmentPrescription extends Fragment {
                 super.onTabSelected(tab);
                 viewPager.setCurrentItem(tab.getPosition());
                 //int selectedTabPosition = viewPager.getCurrentItem();
-                Log.d("Selected", "Selected " + tab.getPosition());
+                //Log.d("Selected", "Selected " + tab.getPosition());
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 super.onTabUnselected(tab);
-                Log.d("Unselected", "Unselected " + tab.getPosition());
+                //Log.d("Unselected", "Unselected " + tab.getPosition());
             }
         });
 

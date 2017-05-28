@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
-
     }
 
     @Override

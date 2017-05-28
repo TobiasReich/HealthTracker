@@ -24,4 +24,7 @@
     <string name="medicine_list_item_amount">Amount:</string>
     <string name="medicine_list_item_mg">mg</string>
 
+    <string name="dialog_delete_medicine_from_list_message">Are you sure you want to remove this medicine (%1$s %2$d) from your list?</string>
+    <string name="dialog_title_are_you_sure">Are you sure?</string>
+
 </resources>

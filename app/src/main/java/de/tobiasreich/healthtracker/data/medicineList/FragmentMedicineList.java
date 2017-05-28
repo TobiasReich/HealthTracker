@@ -98,8 +98,8 @@ public class FragmentMedicineList extends Fragment implements IMedicineListUpdat
                 updateListOfMedicines();
             }
         });
-        orderSpinner.setAdapter(adapter);
 
+        orderSpinner.setAdapter(adapter);
         updateListOfMedicines();
 
         return rootView;
@@ -113,7 +113,7 @@ public class FragmentMedicineList extends Fragment implements IMedicineListUpdat
         } else {
             noMedicineInListTV.setVisibility(View.GONE);
             medicineRecycleView.setVisibility(View.VISIBLE);
-            medicineAdapter = new MedicineAdapter(userMeds, getActivity());
+            medicineAdapter = new MedicineAdapter(userMeds, getActivity(), this, dbHelper);
             medicineRecycleView.setAdapter(medicineAdapter);
         }
     }
